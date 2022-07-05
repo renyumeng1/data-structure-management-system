@@ -17,7 +17,7 @@ class QuestionBankDesc(models.Model):
     category = models.ForeignKey(QuestionCategory, on_delete=models.CASCADE)  # 题目类别关联QuestionCategory表
     total_students_finish = models.IntegerField(default=0)  # 学生该题目的完成情况
     ques_sample = models.CharField(max_length=255, null=False, unique=True)  # 题目测试样例（地址）
-    ques_answer = models.CharField(max_length=255, null=False,unique=True)  # 题目样例对应的答案（地址）
+    ques_answer = models.CharField(max_length=255, null=False, unique=True)  # 题目样例对应的答案（地址）
 
 
 # 题目的显示页
