@@ -70,6 +70,21 @@ class SQLOperation:
             result_lst.append(dict_res)
         return result_lst
 
+    @staticmethod
+    def load_sql(path):
+        """
+
+        :param path: sql文件的地址必须是绝对路径
+        :return: Sql语句
+        """
+        sql = ""
+        with open(path) as file:
+            sql_list = file.readlines()
+            for i in range(len(sql_list)):
+                sql += sql_list[i]
+        file.close()
+        return sql
+
 
 if __name__ == "__main__":
     SQL = """

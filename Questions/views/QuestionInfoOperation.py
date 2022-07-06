@@ -6,20 +6,14 @@
 # @Project : DataStructureManagementSystem
 from utils.run_mysql import SQLOperation
 from django.http import JsonResponse
+import os
 
 
 def getQuestionAllInfo(request):
     if request.method == "GET":
-        sql = """
-        select result.id,result.ques_name,qc.ques_category,result.ques_Detail,result.total_students_finish
-from (select bank.id, bank.ques_name, qq.ques_Detail, qq.category_id, qq.total_students_finish
-      from questions_questionbank bank
-               inner join questions_questionbankdesc qq on bank.desc_id = qq.id) result,questions_questioncategory qc
-         where result.category_id = qc.id;
-        """
+        module_dir = os.path.dirname(__file__)
+        file_path = os.path.join(module_dir, "./allSql/getQuestionAllInfo.sql")
+        sql = SQLOperation.load_sql(file_path)
         query_dict = SQLOperation().deal_sql_result(sql, "id", "ques_name", "ques_category", "ques_detail",
                                                     "total_finish")
-        return JsonResponse(query_dict,safe=False)
-
-
-
+        return JsonResponse(query_dict, safe=False)
