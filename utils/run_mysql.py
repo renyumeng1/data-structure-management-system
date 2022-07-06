@@ -22,11 +22,9 @@ class SQLOperation:
 
     def run_sql(self, sql):
         """
-
         :param sql: 执行的sql语句
         :return: 查询结果
         """
-
         con = None
         while True:
             try:
@@ -63,6 +61,8 @@ class SQLOperation:
         """
         query_result: Union[bool, Tuple[Tuple[Any, ...], ...]] = self.run_sql(sql)
         result_lst = []
+        if len(query_result) == 0:
+            return {}
         for i in range(len(query_result)):
             dict_res = {}
             for j in range(len(query_result[i])):
@@ -73,16 +73,19 @@ class SQLOperation:
     @staticmethod
     def load_sql(path):
         """
-
         :param path: sql文件的地址必须是绝对路径
         :return: Sql语句
         """
         sql = ""
-        with open(path) as file:
-            sql_list = file.readlines()
-            for i in range(len(sql_list)):
-                sql += sql_list[i]
-        file.close()
+        try:
+            with open(path) as file:
+                sql_list = file.readlines()
+                for i in range(len(sql_list)):
+                    sql += sql_list[i]
+            file.close()
+        except:
+            logging.error("can not find this file.")
+            return None
         return sql
 
 
