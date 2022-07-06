@@ -54,10 +54,9 @@ class SQLOperation:
 
     def deal_sql_result(self, sql: str, *key: str):
         """
-
         :param sql: 执行的sql语句
         :param key: 查询数据的键值
-        :return:
+        :return:查询的数据
         """
         query_result: Union[bool, Tuple[Tuple[Any, ...], ...]] = self.run_sql(sql)
         result_lst = []
