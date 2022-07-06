@@ -86,9 +86,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'DataStructureManagementSystemDataBase',  # 数据库名字
         'USER': 'root',
-        'PASSWORD': '512020',
-        'HOST': '1.tcp.cpolar.io',  # 那台机器安装了MySQL
-        'PORT': 10481,
+        'PASSWORD': 'renyumeng',
+        'HOST': 'localhost',  # 那台机器安装了MySQL
+        'PORT': 3306,
         # 'OPTIONS': {'init_command': 'SET default_storage_engine=INNODB;',
         #             'ssl_mode': 'DISABLED',  # 取消ssl认证}
         #             }
