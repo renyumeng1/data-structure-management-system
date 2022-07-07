@@ -14,11 +14,18 @@ class GenerateSQL:
         pass
 
     def __init__(self, table_name, form_data):
+        """
+        :param table_name: 需要增添数据的字段名
+        :param form_data: 前端发送的表单数据
+        """
         self.table_name = table_name
         self.form_data = form_data
 
     @property
     def generate_add_statement(self):
+        """
+        :return: 增添加数据的sql语句
+        """
         _table_name = ""
         _value = ""
         size = 0
@@ -54,6 +61,10 @@ class GenerateSQL:
         return sql
 
     def run_sql(self):
+        """
+        :returns:result:True || False
+        :returns:errorMsg
+        """
         sql = self.generate_add_statement
         try:
             result = SQLOperation().run_sql(sql, operation="ADD")

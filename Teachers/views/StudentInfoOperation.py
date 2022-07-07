@@ -13,6 +13,10 @@ from django.http import JsonResponse, Http404
 
 
 def getStuInfo(request):
+    """
+    :param request: 前端发送的请求
+    :return: 查询所有学生数据
+    """
     if request.method == "GET":
         module_dir = os.path.dirname(__file__)
         file_path = os.path.join(module_dir, "./allSql/getStudentInfo.sql")
@@ -25,6 +29,10 @@ def getStuInfo(request):
 
 
 def addStuInfo(request):
+    """
+    :param request: 前端发送的请求
+    :return: 添加学生信息
+    """
     if request.method == "POST":
         form = AddStudentInfoForm(data=request.POST)
         if form.is_valid():
