@@ -19,6 +19,8 @@ from Teachers.views import StudentInfoOperation
 from Questions.views import QuestionInfoOperation
 
 urlpatterns = [
-    path('api/student/get/info/', StudentInfoOperation.getStuInfo),
-    path('api/question/get/all/info/', QuestionInfoOperation.getQuestionAllInfo)
+    path('api/student/get/info/', StudentInfoOperation.getStuInfo),  # 展示学生信息
+    path('api/student/add/info/', StudentInfoOperation.addStuInfo),  # 增添学生信息
+    path('api/question/get/all/info/', QuestionInfoOperation.getQuestionAllInfo),  # 展示所有题目信息
+
 ]

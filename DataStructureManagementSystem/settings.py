@@ -45,7 +45,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -85,9 +85,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'DataStructureManagementSystemDataBase',  # 数据库名字
-        'USER': 'root',
-        'PASSWORD': 'renyumeng',
-        'HOST': 'localhost',  # 那台机器安装了MySQL
+        'USER': 'rym',
+        'PASSWORD': '512020',
+        'HOST': '121.5.164.63',  # 那台机器安装了MySQL
         'PORT': 3306,
         # 'OPTIONS': {'init_command': 'SET default_storage_engine=INNODB;',
         #             'ssl_mode': 'DISABLED',  # 取消ssl认证}
@@ -117,7 +117,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-hans'
 
 TIME_ZONE = 'UTC'
 

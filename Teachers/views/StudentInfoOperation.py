@@ -5,7 +5,10 @@
 # @File : StudentInfoOperation.py
 # @Project : DataStructureManagementSystem
 import os
-from utils.run_mysql import SQLOperation
+
+from utils.SQL.runMYSQL import SQLOperation
+from utils.SQL.GenerateSQL import GenerateSQL
+from Teachers.views.From import AddStudentInfoForm
 from django.http import JsonResponse, Http404
 
 
@@ -17,4 +20,24 @@ def getStuInfo(request):
         if sql is None:
             return Http404
         query_dict = SQLOperation().deal_sql_result(sql, "id", "stu_name", "stu_id", "teacher_name", "class")
+        print(query_dict)
         return JsonResponse(query_dict, safe=False)
+
+
+def addStuInfo(request):
+    if request.method == "POST":
+        form = AddStudentInfoForm(data=request.POST)
+        if form.is_valid():
+            stu_data = form.cleaned_data
+            status = GenerateSQL(table_name="Students_student", form_data=stu_data).run_sql()
+            if status == True:
+                return JsonResponse({
+                    "status": True
+                })
+            return JsonResponse({
+                "errmsg": status
+            })
+        return JsonResponse({
+            "status": False,
+            "errmsg": form.errors
+        })

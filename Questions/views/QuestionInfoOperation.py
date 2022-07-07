@@ -4,7 +4,7 @@
 # @Email : 2035328756@qq.com
 # @File : QuestionInfoOperation.py
 # @Project : DataStructureManagementSystem
-from utils.run_mysql import SQLOperation
+from utils.SQL.runMYSQL import SQLOperation
 from django.http import JsonResponse, Http404
 import os
 
