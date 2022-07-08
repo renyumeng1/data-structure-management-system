@@ -5,7 +5,7 @@
 # @File : StudentInfoOperation.py
 # @Project : DataStructureManagementSystem
 import os
-
+from utils.pagination import pagination
 from utils.SQL.runMYSQL import SQLOperation
 from utils.SQL.GenerateSQL import GenerateSQL
 from Teachers.views.From import AddStudentInfoForm
@@ -19,13 +19,26 @@ def getStuInfo(request):
     """
     if request.method == "GET":
         module_dir = os.path.dirname(__file__)
-        file_path = os.path.join(module_dir, "./allSql/getStudentInfo.sql")
+        file_path = os.path.join(module_dir, "allSql/studentSQL/getStudentInfo.sql")
         sql = SQLOperation.load_sql(file_path)
         if sql is None:
             return Http404
+        all_operation = pagination(request, sql)
+        if type(all_operation) is not dict:
+            return all_operation
+        sql = all_operation['sql']
+        exist_page = all_operation['exist_page']
         query_dict = SQLOperation().deal_sql_result(sql, "id", "stu_name", "stu_id", "teacher_name", "class")
-        print(query_dict)
-        return JsonResponse(query_dict, safe=False)
+        if exist_page is None:
+            return JsonResponse({
+                'status': True,
+                'data': query_dict
+            })
+        return JsonResponse({
+            'status': True,
+            'page': exist_page,
+            'data': query_dict
+        })
 
 
 def addStuInfo(request):

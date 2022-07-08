@@ -5,5 +5,3 @@ from (select t1.id,t1.stu_name, t1.stu_id, t1.Class_id, t2.teacher_name
       where t1.teacher_id = t2.id) result,
      Teachers_classes tc
 where result.Class_id = tc.id;
-
-
