@@ -6,13 +6,14 @@ import lorun
 import os
 
 class judge_one:
-    def __init__(self,solution_id,time_lim,mem_lim,lan) -> None:
+    def __init__(self,solution_id,user_id,time_lim,mem_lim,lan) -> None:
         self.Path_in=os.path.join(config.TestCase_DIR,str(solution_id))#输入文件路径
         self.Path_out=os.path.join(config.TestCase_DIR,str(solution_id))#提交代码的输出文件路径
         self.tlim=time_lim#时间限制
         self.mlim=mem_lim#内存限制
         self.lan=lan#选择的语言
-
+        self.user_id=user_id
+        self.solution_id=solution_id
     def judge_result(self,test_case_id)->str:
         user_out_path=os.path.join(self.Path_out,str(test_case_id)+".txt")
         ans_path=os.path.join(self.Path_in,str(test_case_id)+".out")
@@ -34,7 +35,7 @@ class judge_one:
     def run(self,test_case_id)->tuple:
         input_path=open(os.path.join(self.Path_in,str(test_case_id)+".in"))
         output_path=open(os.path.join(self.Path_out,str(test_case_id)+".txt"),"w")
-        args=Language[self.lan]
+        args=Language[self.lan].format(user_id=self.user_id,solution_id=self.solution_id)
         main_exe = args
         if self.lan not in ["g++","gcc"]:main_exe = args.split()
         runcfg = {
