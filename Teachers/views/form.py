@@ -2,7 +2,7 @@
 # @Time : 2022/7/7 13:44
 # @Author : renyumeng
 # @Email : 2035328756@qq.com
-# @File : From.py
+# @File : form.py
 # @Project : DataStructureManagementSystem
 from Students.models import Student
 from django import forms

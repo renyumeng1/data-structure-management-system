@@ -8,7 +8,7 @@ import os
 from utils.pagination import pagination
 from utils.SQL.runMYSQL import SQLOperation
 from utils.SQL.GenerateSQL import GenerateSQL
-from Teachers.views.From import AddStudentInfoForm
+from Teachers.views.form import AddStudentInfoForm
 from django.http import JsonResponse, Http404
 
 
