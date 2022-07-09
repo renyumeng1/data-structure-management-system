@@ -1,5 +1,5 @@
 import os
-import config
+import judger.config as config
 
 # from judge_main import get_id
 

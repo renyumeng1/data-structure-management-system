@@ -16,8 +16,7 @@ class QuestionBankDesc(models.Model):
     ques_detail = models.CharField(max_length=1024, null=False)
     category = models.ForeignKey(QuestionCategory, on_delete=models.CASCADE)  # 题目类别关联QuestionCategory表
     total_students_finish = models.IntegerField(default=0)  # 学生该题目的完成情况
-    ques_sample = models.CharField(max_length=255, null=False)  # 题目测试样例（地址）
-    ques_answer = models.CharField(max_length=255, null=False)  # 题目样例对应的答案（地址）
+    ques_case = models.CharField(max_length=255)  # 题目测试样例（地址）
 
 
 # 题目的显示页
@@ -33,12 +32,8 @@ class QuestionBank(models.Model):
 class StudentQuestionStatus(models.Model):
     stu = models.ForeignKey(Student, on_delete=models.CASCADE)
     ques = models.ForeignKey(QuestionBank, on_delete=models.CASCADE)
-    status_choices = (
-        (0, '未提交'),
-        (1, '结果不正确'),
-        (2, '结果正确')
-    )
-    status = models.SmallIntegerField(default=0, choices=status_choices)
+    status = models.CharField(max_length=64,default=0)
+    language = models.CharField(max_length=64, null=False, default='python3')
     stu_solution = models.CharField(max_length=1024, null=False)
 
 

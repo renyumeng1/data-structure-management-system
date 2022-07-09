@@ -1,7 +1,6 @@
-from language import Language
-from unittest import result
+from judger.language import Language
 import logging
-import config
+import judger.config as config
 import lorun
 import os
 

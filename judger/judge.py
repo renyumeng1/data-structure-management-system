@@ -1,4 +1,4 @@
-from Judge_One import judge_one
+from judger.Judge_One import judge_one
 
 
 class Judger:
