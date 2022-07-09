@@ -62,3 +62,7 @@ def addStuInfo(request):
             "status": False,
             "errmsg": form.errors
         })
+
+
+def editStudentInfo(request, nid):
+    pass
