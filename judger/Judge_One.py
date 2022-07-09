@@ -24,13 +24,13 @@ class judge_one:
         user_out = out.read().replace("\r", "").rstrip()
         correct = ans.read().replace("\r", "").rstrip()
         if user_out == correct:
-            os.remove(user_out_path)
+            # os.remove(user_out_path)
             return "ACCEPT"
         if user_out.split() == correct.split():
-            os.remove(user_out_path)
+            # os.remove(user_out_path)
             return "Presentation Error"
         else:
-            os.remove(user_out_path)
+            # os.remove(user_out_path)
             return "Wrong Anser"
 
 

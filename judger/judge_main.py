@@ -29,7 +29,7 @@ import os
 
 
 class MainJudge:
-    def __init__(self, language, TimeLim, MemLim, solution_id, user_id, mode="acm"
+    def __init__(self, language, TimeLim, MemLim, solution_id, user_id, mode="oi"
                  ) -> None:
         self.language = language
         self.TimeLim = TimeLim
@@ -56,15 +56,15 @@ class MainJudge:
             }  # 编译失败
         result = Judger.judge(self.solution_id, self.user_id, language, self.TimeLim, self.MemLim, self.mode)
         # 取得结果，这里用字典的形式返回，方便转json
-        os.remove(Language_rm[language].format(user_id=self.user_id, solution_id=self.solution_id))
+        # remove(Language_rm[language].format(user_id=self.user_id, solution_id=self.solution_id))
         # 删除编译文件
         return result
 
 
 if __name__ == "__main__":
     # 这个到时候应该是前端传下来的，先暂时像这样
-    language = "gcc"
-    # language="gcc"
+    language = "python3"
+    # language = "g++"
     # language="g++"
     # language="java"现在在我的环境下(wsl2 ubuntu18.04.5)还运行不了java
     Jud = MainJudge(language, 1000, 102400, 1001, 5120201234)

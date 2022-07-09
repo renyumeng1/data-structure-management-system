@@ -5,6 +5,8 @@
 # @File : ClassInfoOperation.py
 # @Project : DataStructureManagementSystem
 import os
+from Teachers.views.form import AddClassInfoForm
+from utils.SQL.GenerateSQL import GenerateSQL
 from utils.pagination import pagination
 from utils.SQL.runMYSQL import SQLOperation
 from django.http import JsonResponse, Http404, HttpResponse
@@ -38,4 +40,18 @@ def getClassInfo(request):
 def addClassInfo(request):
     # 增加一个班级
     if request.method == "POST":
-        return HttpResponse(123)
+        form = AddClassInfoForm(data=request.POST)
+        if form.is_valid():
+            cla_data = form.cleaned_data
+            status = GenerateSQL(table_name="Teachers_classes", form_data=cla_data).run_sql()
+            if status == True:
+                return JsonResponse({
+                    "status": True
+                })
+            return JsonResponse({
+                "errmsg": status
+            })
+        return JsonResponse({
+            "status": False,
+            "errmsg": form.errors
+        })
