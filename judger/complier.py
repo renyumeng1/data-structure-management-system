@@ -1,6 +1,8 @@
 import os
 import subprocess
 import config
+import py_compile
+
 # from language import Language
 
 

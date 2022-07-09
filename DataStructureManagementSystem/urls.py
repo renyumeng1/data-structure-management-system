@@ -21,7 +21,9 @@ from Questions.views import QuestionInfoOperation
 urlpatterns = [
     path('api/student/get/info/', StudentInfoOperation.getStuInfo),  # 展示学生信息
     path('api/student/add/info/', StudentInfoOperation.addStuInfo),  # 增添学生信息
+    path('api/student/edit/int:nid/info/', StudentInfoOperation.editStudentInfo),  # 修改学生信息
     path('api/question/get/all/info/', QuestionInfoOperation.getQuestionAllInfo),  # 展示所有题目信息
     path('api/class/get/info/', ClassInfoOperation.getClassInfo),  # 展示班级信息
+    path('api/class/add/info/', ClassInfoOperation.addClassInfo)  # 增加学生信息
 
 ]
