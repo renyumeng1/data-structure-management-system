@@ -10,7 +10,8 @@ gcc = gpp = ["%s/main" % (path), ]
 
 java = "java -cp %s Main" % (path)
 
-python3 = "python3 %s" % (os.path.join(path, "__pycache__", "main.cpython-37.pyc"))
+# python3 = "python3 %s" % (os.path.join(path, "__pycache__", "main.cpython-37.pyc"))
+python3 = "python3 %s" % (os.path.join(path,"main.py"))
 
 Language = {
     "gcc": gcc,
