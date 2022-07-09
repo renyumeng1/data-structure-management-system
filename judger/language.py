@@ -1,12 +1,16 @@
 import os
 import config
+
+# from judge_main import get_id
+
+
 path = os.path.join(config.WORK_DIR, "{user_id}", "{solution_id}", "code")
 
 gcc = gpp = ["%s/main" % (path), ]
 
 java = "java -cp %s Main" % (path)
 
-python3 = "python3 %s" % (os.path.join(path, "__pycache__", "main.cpython-310.pyc"))
+python3 = "python3 %s" % (os.path.join(path, "__pycache__", "main.cpython-37.pyc"))
 
 Language = {
     "gcc": gcc,
