@@ -66,5 +66,5 @@ if __name__ == "__main__":
     # language = "g++"
     # language="g++"
     # language="java"现在在我的环境下(wsl2 ubuntu18.04.5)还运行不了java
-    Jud = MainJudge(language, 1000, 102400, 1001, 5120201234)
+    Jud = MainJudge(language, 1000, 102400, 1002, 5120201234)
     print(Jud.run())
