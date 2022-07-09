@@ -17,11 +17,18 @@
       <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="DataStructureManagementSystemDataBase@121.5.164.63" uuid="76e737e8-0c58-4160-99a5-a02d42c2a6b5">
+    <data-source source="LOCAL" name="rym" uuid="0bb48f5e-09a8-4e5d-8503-581cc6314014">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://121.5.164.63:3306/DataStructureManagementSystemDataBase</jdbc-url>
+      <jdbc-url>jdbc:mysql://121.5.164.63:3306</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="我的服务器" uuid="7ccab505-9cec-4303-9dc7-e532a5c888a7">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://101.34.38.102:3306</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

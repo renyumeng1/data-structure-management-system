@@ -4,6 +4,8 @@
 # @Email : 2035328756@qq.com
 # @File : QuestionInfoOperation.py
 # @Project : DataStructureManagementSystem
+from typing import Union, Dict, Optional
+
 from utils.SQL.runMYSQL import SQLOperation
 from django.http import JsonResponse, Http404
 import os
@@ -19,7 +21,7 @@ def getQuestionAllInfo(request):
         sql = SQLOperation.load_sql(file_path)
         if sql is None:
             return Http404
-        all_operation = pagination(request, sql)
+        all_operation: Union[JsonResponse, Dict[str, Optional[str]]] = pagination(request, sql)
         if type(all_operation) is not dict:
             return all_operation
         sql = all_operation['sql']
