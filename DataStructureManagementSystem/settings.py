@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure-xammmdi3i)iwz98&ed5!2k3!b^isod!!n3!i^5)e+fxzl(!2gz
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['101.34.38.102', 'localhost', '127.0.0.1']
 
 # Application definition
 
@@ -85,9 +85,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'DataStructureManagementSystemDataBase',  # 数据库名字
-        'USER': 'rym',
-        'PASSWORD': '512020',
-        'HOST': '121.5.164.63',  # 那台机器安装了MySQL
+        'USER': 'root',
+        'PASSWORD': '020301',
+        'HOST': '101.34.38.102',  # 那台机器安装了MySQL
         'PORT': 3306,
         # 'OPTIONS': {'init_command': 'SET default_storage_engine=INNODB;',
         #             'ssl_mode': 'DISABLED',  # 取消ssl认证}

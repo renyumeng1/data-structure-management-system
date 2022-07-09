@@ -4,7 +4,7 @@
 # @Email : 2035328756@qq.com
 # @File : config.py
 # @Project : DataStructureManagementSystem
-host = "121.5.164.63"
-user = "rym"
-password = '512020'
+host = "101.34.38.102"
+user = "root"
+password = '020301'
 dataBaseName = "DataStructureManagementSystemDataBase"
