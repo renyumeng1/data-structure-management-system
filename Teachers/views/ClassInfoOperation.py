@@ -7,7 +7,7 @@
 import os
 from utils.pagination import pagination
 from utils.SQL.runMYSQL import SQLOperation
-from django.http import JsonResponse, Http404
+from django.http import JsonResponse, Http404, HttpResponse
 
 
 def getClassInfo(request):
@@ -33,3 +33,9 @@ def getClassInfo(request):
             'page': exist_page,
             'data': query_dict
         })
+
+
+def addClassInfo(request):
+    # 增加一个班级
+    if request.method == "POST":
+        return HttpResponse(123)

@@ -29,15 +29,16 @@ import os
 
 
 class MainJudge:
-    def __init__(self, language, TimeLim, MemLim,solution_id, user_id,mode="acm"
-) -> None:
+    def __init__(self, language, TimeLim, MemLim, solution_id, user_id, mode="acm"
+                 ) -> None:
         self.language = language
         self.TimeLim = TimeLim
         self.MemLim = MemLim
-        self.solution_id,self.user_id=solution_id, user_id
-        self.mode=mode
-    def get_id(self) ->list:
-        return [self.user_id,self.solution_id]
+        self.solution_id, self.user_id = solution_id, user_id
+        self.mode = mode
+
+    def get_id(self) -> list:
+        return [self.user_id, self.solution_id]
 
     def run(self) -> dict:
         cp = Complier(self.solution_id, self.user_id, self.language)  # 获取编译器
@@ -46,25 +47,25 @@ class MainJudge:
 
         if not msg:
             return {
-                        "solution_id":self.solution_id,
-                        "test_id":"#",
-                        "user_id":self.user_id,
-                        "your_time_used":"#"+"ms",
-                        "your_mem_used":"#"+"KB",
-                        "ans":"Complier Error",
-                    }  # 编译失败
-        result = Judger.judge(self.solution_id, self.user_id, language, self.TimeLim, self.MemLim,self.mode)
+                "solution_id": self.solution_id,
+                "test_id": "#",
+                "user_id": self.user_id,
+                "your_time_used": "#" + "ms",
+                "your_mem_used": "#" + "KB",
+                "ans": "Complier Error",
+            }  # 编译失败
+        result = Judger.judge(self.solution_id, self.user_id, language, self.TimeLim, self.MemLim, self.mode)
         # 取得结果，这里用字典的形式返回，方便转json
-        os.remove(Language_rm[language].format(user_id=self.user_id,solution_id=self.solution_id))
+        os.remove(Language_rm[language].format(user_id=self.user_id, solution_id=self.solution_id))
         # 删除编译文件
         return result
 
 
 if __name__ == "__main__":
     # 这个到时候应该是前端传下来的，先暂时像这样
-    language = "python3"
+    language = "gcc"
     # language="gcc"
     # language="g++"
     # language="java"现在在我的环境下(wsl2 ubuntu18.04.5)还运行不了java
-    Jud = MainJudge(language,1000,102400,1001,5120201234)
+    Jud = MainJudge(language, 1000, 102400, 1001, 5120201234)
     print(Jud.run())
