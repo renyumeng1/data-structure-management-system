@@ -7,4 +7,5 @@ public class Main {
          b=input.nextInt();
         System.out.println(a+b);
     }
+
 }

@@ -6,7 +6,6 @@ import lorun
 import os
 
 
-
 class judge_one:
     def __init__(self, solution_id, user_id, time_lim, mem_lim, lan) -> None:
         self.Path_in = os.path.join(config.TestCase_DIR, str(solution_id))  # 输入文件路径
@@ -38,6 +37,7 @@ class judge_one:
         input_path = open(os.path.join(self.Path_in, str(test_case_id) + ".in"))
         output_path = open(os.path.join(self.Path_out, str(test_case_id) + ".txt"), "w")
         args = Language[self.lan].format(user_id=self.user_id, solution_id=self.solution_id)
+        print(args)
         main_exe = args
         if self.lan not in ["g++", "gcc"]: main_exe = args.split()
         runcfg = {

@@ -20,8 +20,6 @@ support language:
 [python3,c,c++,java]
 '''
 
-
-
 from operator import imod
 from complier import Complier
 import language
@@ -65,7 +63,7 @@ class MainJudge:
 
 if __name__ == "__main__":
     # 这个到时候应该是前端传下来的，先暂时像这样
-    language = "python3"
+    language = "gcc"
     # language="gcc"
     # language="g++"
     # language="java"现在在我的环境下(wsl2 ubuntu18.04.5)还运行不了java

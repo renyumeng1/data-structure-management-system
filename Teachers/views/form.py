@@ -16,3 +16,9 @@ class AddStudentInfoForm(forms.Form):
     stu_gender = forms.IntegerField()
     teacher = forms.IntegerField()
     Class = forms.IntegerField()
+
+
+class AddClassInfoForm(forms.Form):
+    class_name = forms.CharField(max_length=32)
+    teacher = forms.IntegerField()
+
