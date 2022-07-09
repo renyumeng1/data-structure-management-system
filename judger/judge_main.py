@@ -8,7 +8,7 @@ https://github.com/dojiong/Lo-runner
 '''
 complier --version:
 
-python3:3.10
+python3:3.7
 python2:None
 gcc:gcc version 7.5.0
 java:{openjdk version "11.0.15" 2022-04-19
@@ -56,7 +56,7 @@ class MainJudge:
             }  # 编译失败
         result = Judger.judge(self.solution_id, self.user_id, language, self.TimeLim, self.MemLim, self.mode)
         # 取得结果，这里用字典的形式返回，方便转json
-        # remove(Language_rm[language].format(user_id=self.user_id, solution_id=self.solution_id))
+        if language!="python3": os.remove(Language_rm[language].format(user_id=self.user_id, solution_id=self.solution_id))
         # 删除编译文件
         return result
 
