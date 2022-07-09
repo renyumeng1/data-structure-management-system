@@ -33,11 +33,12 @@ class judge_one:
             os.remove(user_out_path)
             return "Wrong Anser"
 
-    def run(self, test_case_id) -> tuple:
-        input_path = open(os.path.join(self.Path_in, str(test_case_id) + ".in"))
-        output_path = open(os.path.join(self.Path_out, str(test_case_id) + ".txt"), "w")
-        args = Language[self.lan].format(user_id=self.user_id, solution_id=self.solution_id)
-        print(args)
+
+    def run(self,test_case_id)->tuple:
+        input_path=open(os.path.join(self.Path_in,str(test_case_id)+".in"))
+        output_path=open(os.path.join(self.Path_out,str(test_case_id)+".txt"),"w")
+        if self.lan in ["g++","gcc"]:args=[Language[self.lan][0].format(user_id=self.user_id,solution_id=self.solution_id)]
+        else:args=Language[self.lan].format(user_id=self.user_id,solution_id=self.solution_id)
         main_exe = args
         if self.lan not in ["g++", "gcc"]: main_exe = args.split()
         runcfg = {
