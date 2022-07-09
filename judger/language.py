@@ -1,5 +1,7 @@
 import os
 import config
+
+
 path = os.path.join(config.WORK_DIR, "{user_id}", "{solution_id}", "code")
 
 gcc = gpp = ["%s/main" % (path), ]
