@@ -90,5 +90,5 @@ class MakeCodeFileFromDataBase:
 
 
 if __name__ == "__main__":
-    status = MakeCodeFileFromDataBase(sql_path='../allSQL/getJudgeInfo.sql', subs_path='../subs').makeCodeFile
+    status = MakeCodeFileFromDataBase(sql_path='../allSQL/getJudgeInfo.sql', subs_path='../../subsAndCase/subs').makeCodeFile
     print(status)

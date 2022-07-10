@@ -22,7 +22,7 @@ app = Flask(__name__)
 
 @app.route('/api/create/path')
 def createPath():
-    res = MakeCodeFileFromDataBase(sql_path='./allSQL/getJudgeInfo.sql', subs_path='./subs').makeCodeFile
+    res = MakeCodeFileFromDataBase(sql_path='./allSQL/getJudgeInfo.sql', subs_path='../subsAndCase/subs').makeCodeFile
     return {
         'status': True,
         'makeFileStatus': res
@@ -49,7 +49,7 @@ def JudAPI(stu_id, que_id, language):
         }
     for i in range(len(sql_res)):
         temp_sql_res = sql_res[i]
-        path = os.path.join('./subs/user', str(temp_sql_res['stu_id']), str(temp_sql_res['ques_id']))
+        path = os.path.join('../DataStructureManagementSystem/../subsAndCase/subs/user', str(temp_sql_res['stu_id']), str(temp_sql_res['ques_id']))
         jud_time = 0
         while True:
             path_status = os.path.exists(path)
@@ -68,7 +68,6 @@ def JudAPI(stu_id, que_id, language):
         language = 'g++'
     Jud = judger.MainJudge(language, TimeLim=time_limit, MemLim=memory_limit, solution_id=que_id, user_id=stu_id)
     res = Jud.run()
-    print(res)
     return {
         'status': True,
         'judgeResult': res
@@ -76,4 +75,4 @@ def JudAPI(stu_id, que_id, language):
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=8080)
+    app.run(host='0.0.0.0', port=4000)
