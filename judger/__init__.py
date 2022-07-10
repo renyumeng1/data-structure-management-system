@@ -6,4 +6,10 @@
 # @Project : DataStructureManagementSystem
 
 import sys
+import judger.language
+from judger.complier import Complier
+from judger.judge import Judger
+from judger.judge_main import MainJudge
+from judger.Judge_One import judge_one
+
 sys.path.append('..')

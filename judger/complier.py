@@ -1,7 +1,7 @@
 import os
 import subprocess
-import config
-import py_compile
+import judger.config as config
+
 
 # from language import Language
 
