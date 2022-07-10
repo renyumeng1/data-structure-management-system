@@ -11,8 +11,11 @@ from utils.mkDir import MakeCodeFileFromDataBase
 from utils.SQL.runMYSQL import SQLOperation
 from pymysql.cursors import DictCursor
 from flask import Flask
+# from gevent import monkey
 import logging
 import judger
+
+# monkey.patch_all()
 
 app = Flask(__name__)
 
@@ -28,7 +31,15 @@ def createPath():
 
 @app.route('/api/jud/<language>/<stu_id>/<que_id>')
 def JudAPI(stu_id, que_id, language):
-    sql = f"select stu_solution,stu_id,ques_id from Questions_studentquestionstatus where ques_id={que_id} and stu_id={stu_id} and status = '0';"
+    sql = f"""
+    select t1.stu_solution, t1.stu_id, t1.ques_id, t2.time_limit, t2.memory_limit
+    from Questions_studentquestionstatus t1,
+        Questions_questionbankdesc t2
+    where t1.stu_id = {stu_id}
+    and t1.ques_id = {que_id}
+    and t1.status = '0'
+    and t2.id = t1.ques_id;
+    """
     sql_res = SQLOperation(cursor_class=DictCursor).run_sql(sql=sql, operation='SELECT')
 
     if len(sql_res) == 0:
@@ -51,8 +62,13 @@ def JudAPI(stu_id, que_id, language):
                         'errmsg': '数据库中没有该学生的做题记录，请重新提交该题目。'
                     }
             break
-    Jud = judger.MainJudge(language, TimeLim=1000, MemLim=102400, solution_id=que_id, user_id=stu_id)
+    memory_limit = eval(sql_res[0]['memory_limit'][:-2])
+    time_limit = eval(sql_res[0]['time_limit'][:-2])
+    if language == 'gcc':
+        language = 'g++'
+    Jud = judger.MainJudge(language, TimeLim=time_limit, MemLim=memory_limit, solution_id=que_id, user_id=stu_id)
     res = Jud.run()
+    print(res)
     return {
         'status': True,
         'judgeResult': res

@@ -17,6 +17,8 @@ class QuestionBankDesc(models.Model):
     category = models.ForeignKey(QuestionCategory, on_delete=models.CASCADE)  # 题目类别关联QuestionCategory表
     total_students_finish = models.IntegerField(default=0)  # 学生该题目的完成情况
     ques_case = models.CharField(max_length=255)  # 题目测试样例（地址）
+    time_limit = models.CharField(max_length=1024, default='1000ms')  # 题目的时间限制
+    memory_limit = models.CharField(max_length=1024, default='102400KB')  # 题目的内存限制
 
 
 # 题目的显示页
@@ -32,7 +34,7 @@ class QuestionBank(models.Model):
 class StudentQuestionStatus(models.Model):
     stu = models.ForeignKey(Student, on_delete=models.CASCADE)
     ques = models.ForeignKey(QuestionBank, on_delete=models.CASCADE)
-    status = models.CharField(max_length=64,default=0)
+    status = models.CharField(max_length=64, default=0)
     language = models.CharField(max_length=64, null=False, default='python3')
     stu_solution = models.CharField(max_length=1024, null=False)
 
