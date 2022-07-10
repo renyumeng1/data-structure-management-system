@@ -1,2 +1,1 @@
-select ques_id,stu_id,stu_solution,language,status
-from Questions_studentquestionstatus where status = '0';
+select stu_solution,stu_id,status from Questions_studentquestionstatus where status='0';
