@@ -6,9 +6,10 @@
 # @Project : DataStructureManagementSystem
 import os
 from utils.SQL.runMYSQL import SQLOperation
+from pymysql.cursors import DictCursor
 
 
-class MakePythonFileFromDataBase:
+class MakeCodeFileFromDataBase:
     def __init__(self, sql_path, subs_path):
         self.sql_path = sql_path
         self.subs_path = subs_path
@@ -28,39 +29,64 @@ class MakePythonFileFromDataBase:
         # 判断结果
         if not is_exists:
             os.makedirs(path)
-            return path
-        else:
-            # 如果目录存在则不创建，并提示目录已存在
-            return 'false'
+            return {
+                'status': True,
+                'path': path
+            }
+        return {
+            'status': False,
+            'path': path
+        }
 
     @staticmethod
-    def MakeFile(file_name, path, python):
-        cre_path = MakePythonFileFromDataBase.mkdir(path)
-        if cre_path == 'false':
-            return f'{path}目录已经存在'
-        temp_path = os.path.join(cre_path, file_name)
+    def MakeFile(file_name, path, code):
+        cre_path = MakeCodeFileFromDataBase.mkdir(path)
+        if not cre_path['status']:  # 如果目录已经存在，则表示用户是修改自己的代码，数据库里的代码进行进行比对，如果不同就覆盖以前的代码，如果相同直接返回
+            temp_path = os.path.join(cre_path['path'], file_name)
+            file_exist = os.path.exists(temp_path)
+            if file_exist:
+                with open(temp_path) as file:
+                    file_python_code = file.read().replace('\r', '').replace('\t', '').replace(' ', '')
+                    new_python_code = code.replace('\r', '').replace('\t', '').replace(' ', '')
+                    if new_python_code == file_python_code:
+                        return "和源文件的代码一致，不需要修改"
+                    file.close()
+        temp_path = os.path.join(cre_path['path'], file_name)
         file = open(temp_path, 'w')
-        file.write(python)
+        print(code)
+        file.write(code)
         file.close()
-        return True
+        return 'true'
 
-    def makePythonFile(self, python_filename='main.py'):
+    @property
+    def makeCodeFile(self):
         sql = SQLOperation().load_sql(self.sql_path)
-        res = SQLOperation().run_sql(sql, 'SELECT')
+        res = SQLOperation(cursor_class=DictCursor).run_sql(sql, 'SELECT')
         status = {
             'status': False,
         }
         if len(res) == 0:
             status['errmsg'] = '没有学生提交代码'
             return status
+        status_list = []
         for i in range(len(res)):
-            temp_path = os.path.join(self.subs_path, 'user', f'{res[i][1]}/{res[i][0]}/code')
-            temp_status = MakePythonFileFromDataBase.MakeFile(python_filename, temp_path, res[i][2])
-            if temp_status != True:
+            status = {}
+            temp_path = os.path.join(self.subs_path, 'user', f'{res[i]["stu_id"]}/{res[i]["ques_id"]}/code')
+            code = res[i]["stu_solution"]
+            code_file_name = {
+                'python3': 'main.py',
+                'g++': 'main.cpp',
+                'java': 'Main.java'
+            }
+            temp_status = MakeCodeFileFromDataBase.MakeFile(code_file_name[res[i]['language']], temp_path,
+                                                            code)  # 创建代码文件
+            status['status_id'] = i
+            if temp_status != 'true':
                 status['errmsg'] = temp_status
-                return status
-        status['status'] = True
-        return status
+            else:
+                status['status'] = True
+            status_list.append(status)
+        return  status_list
 
     def makePythonFile_withoutsql(self,res,python_filename='main.py'):
         status = {
@@ -76,6 +102,5 @@ class MakePythonFileFromDataBase:
 
 
 if __name__ == "__main__":
-    print(os.path.join('../subs/user', '1/1/code'))
-    if not '1234':
-        print(1)
+    status = MakeCodeFileFromDataBase(sql_path='../allSQL/getJudgeInfo.sql', subs_path='../subs').makeCodeFile
+    print(status)

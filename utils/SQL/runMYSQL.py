@@ -9,15 +9,17 @@ import logging
 import pymysql
 import time
 from typing import Tuple, Union, Any
+from pymysql.cursors import DictCursor, Cursor
 
 
 class SQLOperation:
     def __init__(self, db_host=host, db_user=user, db_password=password,
-                 db_name=dataBaseName):
+                 db_name=dataBaseName, cursor_class=Cursor):
         self.host = db_host
         self.user = db_user
         self.pwd = db_password
         self.name = db_name
+        self.cursor_class = cursor_class
 
     def run_sql(self, sql, operation="SELECT"):
         """
@@ -29,7 +31,7 @@ class SQLOperation:
         while True:
             try:
                 con = pymysql.connect(host=self.host, user=self.user, password=self.pwd,
-                                      database=self.name)
+                                      database=self.name, cursorclass=self.cursor_class)
                 break
             except:
                 logging.error('Cannot connect to database,trying again')
