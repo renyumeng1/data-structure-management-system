@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-# @Time : 2022/7/9 23:21
-# @Author : renyumeng
-# @Email : 2035328756@qq.com
+# @Time : 2022/7/10 21:52
+# @Author : RuanCat
+# @Email : 473670005@qq.com
 # @File : mkDir.py
 # @Project : DataStructureManagementSystem
 import os
@@ -59,6 +59,18 @@ class MakePythonFileFromDataBase:
             if temp_status != True:
                 status['errmsg'] = temp_status
                 return status
+        status['status'] = True
+        return status
+
+    def makePythonFile_withoutsql(self,res,python_filename='main.py'):
+        status = {
+            'status': False,
+        }
+        temp_path = os.path.join(self.subs_path, 'user', f'{res[1]}/{res[0]}/code')
+        temp_status = MakePythonFileFromDataBase.MakeFile(python_filename, temp_path, res[2])
+        if temp_status != True:
+            status['errmsg'] = temp_status
+            return status
         status['status'] = True
         return status
 
