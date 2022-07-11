@@ -4,6 +4,7 @@
 # @Email : 2035328756@qq.com
 # @File : main.py
 # @Project : DataStructureManagementSystem
+import asyncio
 import os
 import time
 import zipfile
@@ -22,7 +23,7 @@ app = Flask(__name__)
 
 
 @app.route('/api/create/ans/path')
-def createSubmitStuAnsPath():
+async def createSubmitStuAnsPath():
     res = MakeCodeFileFromDataBase(sql_path='./allSQL/getJudgeInfo.sql', subs_path='subsAndCase/subs').makeCodeFile
     return {
         'status': True,
@@ -62,7 +63,7 @@ def createSubmitCasePath(ques_id):
 
 
 @app.route('/api/jud/<language>/<stu_id>/<que_id>')
-def JudAPI(stu_id, que_id, language):
+async def JudAPI(stu_id, que_id, language):
     sql = f"""
     select t1.stu_solution, t1.stu_id, t1.ques_id, t2.time_limit, t2.memory_limit
     from Questions_studentquestionstatus t1,
@@ -88,7 +89,7 @@ def JudAPI(stu_id, que_id, language):
             path_status = os.path.exists(path)
             if not path_status:  # 如果该目录还未创建延时2s
                 jud_time += 1
-                time.sleep(2)
+                await asyncio.sleep(5)
                 if jud_time >= 5:
                     return {
                         'status': False,
