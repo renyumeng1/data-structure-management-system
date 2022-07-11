@@ -50,9 +50,8 @@ def addQuestionInfo(request):
     all_path = os.path.dirname(__file__)
     if request.method == "POST":
         form = AddQuestionInfoForm(data=request.POST)
-        try:
-            zip_file_obj = request.FILES.get('case_file')
-        except MultiValueDictKeyError as e:
+        zip_file_obj = request.FILES.get('case_file')
+        if zip_file_obj is None:
             return JsonResponse({
                 'status': False,
                 'errmsg': "没有上传对应题目的测试样例。"
@@ -82,9 +81,12 @@ def addQuestionInfo(request):
                         f.write(line)
                     f.close()
                 url = f"http://101.34.38.102:4000/api/create/{ques_id}/case/path"
+                s = requests.session()
+                s.keep_alive = False
+                headers = {'Connection': 'close'}
                 with open(temp_file_path, "rb") as f:
                     files = {"zip": (zip_file_obj.name, f)}
-                    res = requests.post(url=url, files=files)
+                    res = requests.post(url=url, files=files, verify=False, headers=headers)
                     res_msg = res.json()
                 if res_msg['status']:
                     try:
