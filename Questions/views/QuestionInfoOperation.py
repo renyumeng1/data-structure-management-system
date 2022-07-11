@@ -67,7 +67,7 @@ def addQuestionInfo(request):
             """
             sql_res = SQLOperation().run_sql(sql=sql, operation='INSERT', if_CLIENT=True, if_get_id=True)
 
-            if sql_res['status']:  # (这里返回的是上一次sql执行自增的id)如果sql执行成功，题目信息上传至数据库，开始上传题目测试样例
+            if sql_res['status']:  # 如果sql执行成功，题目信息上传至数据库，开始上传题目测试样例
                 get_id_sql = f"""
                 select id
                 from Questions_questionbank where desc_id = {sql_res['id']};
