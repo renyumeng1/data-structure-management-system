@@ -83,7 +83,6 @@ async def JudAPI(stu_id, que_id, language):
     for i in range(len(sql_res)):
         temp_sql_res = sql_res[i]
         path = os.path.join('subsAndCase/subs/user', str(temp_sql_res['stu_id']), str(temp_sql_res['ques_id']))
-        print(path)
         jud_time = 0
         while True:
             path_status = os.path.exists(path)
