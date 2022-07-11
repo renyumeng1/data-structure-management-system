@@ -21,7 +21,7 @@ def pagination(request, sql, *keys):
         page = eval(page)
         count = eval(count)
         paginator_status = {'paginator': True, 'page': page, 'count': count}
-        sql = GenerateSQL(pagination=paginator_status, operation='SELECT', select_sql=sql).generate_add_statement
+        sql = GenerateSQL(pagination=paginator_status, operation='SELECT', select_sql=sql).generate_statement
         exist_page = page
     return {
         'sql': sql,

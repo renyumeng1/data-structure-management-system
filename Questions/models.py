@@ -16,7 +16,7 @@ class QuestionBankDesc(models.Model):
     ques_detail = models.CharField(max_length=1024, null=False)
     category = models.ForeignKey(QuestionCategory, on_delete=models.CASCADE)  # 题目类别关联QuestionCategory表
     total_students_finish = models.IntegerField(default=0)  # 学生该题目的完成情况
-    ques_case = models.CharField(max_length=255)  # 题目测试样例（地址）
+    # ques_case = models.CharField(max_length=255)  # 题目测试样例（地址）
     time_limit = models.CharField(max_length=1024, default='1000ms')  # 题目的时间限制
     memory_limit = models.CharField(max_length=1024, default='102400KB')  # 题目的内存限制
 

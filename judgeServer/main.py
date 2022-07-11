@@ -6,11 +6,12 @@
 # @Project : DataStructureManagementSystem
 import os
 import time
+import zipfile
 
 from utils.mkDir import MakeCodeFileFromDataBase
 from utils.SQL.runMYSQL import SQLOperation
 from pymysql.cursors import DictCursor
-from flask import Flask
+from flask import Flask, request
 # from gevent import monkey
 import logging
 import judger
@@ -20,12 +21,43 @@ import judger
 app = Flask(__name__)
 
 
-@app.route('/api/create/path')
-def createPath():
-    res = MakeCodeFileFromDataBase(sql_path='./allSQL/getJudgeInfo.sql', subs_path='../subsAndCase/subs').makeCodeFile
+@app.route('/api/create/ans/path')
+def createSubmitStuAnsPath():
+    res = MakeCodeFileFromDataBase(sql_path='./allSQL/getJudgeInfo.sql', subs_path='subsAndCase/subs').makeCodeFile
     return {
         'status': True,
         'makeFileStatus': res
+    }
+
+
+@app.route('/api/create/<ques_id>/case/path', methods=['POST'])
+def createSubmitCasePath(ques_id):
+    zip_file = request.files['zip']
+    print(ques_id)
+    file_name = zip_file.filename
+    if str(file_name).split('.')[-1] != 'zip':
+        return {
+            'status': False,
+            'errmsg': "上传文件格式错误，只支持zip文件。"
+        }
+
+    zip_file_path = os.path.join("./subsAndCase/test_case", str(ques_id))
+    if not os.path.exists(zip_file_path):
+        zip_file_path = MakeCodeFileFromDataBase.mkdir(zip_file_path)['path']
+    try:
+        with zipfile.ZipFile(zip_file) as f:
+            for file in f.namelist():
+                f.extract(file, path=zip_file_path)
+            f.close()
+    except Exception as e:
+        return {
+            'status': False,
+            'errmsg': e
+        }
+
+    return {
+        'status': True,
+        'msg': "文件上传成功"
     }
 
 
@@ -49,19 +81,21 @@ def JudAPI(stu_id, que_id, language):
         }
     for i in range(len(sql_res)):
         temp_sql_res = sql_res[i]
-        path = os.path.join('../DataStructureManagementSystem/../subsAndCase/subs/user', str(temp_sql_res['stu_id']), str(temp_sql_res['ques_id']))
+        path = os.path.join('subsAndCase/subs/user', str(temp_sql_res['stu_id']), str(temp_sql_res['ques_id']))
+        print(path)
         jud_time = 0
         while True:
             path_status = os.path.exists(path)
             if not path_status:  # 如果该目录还未创建延时2s
                 jud_time += 1
                 time.sleep(2)
-                if jud_time >= 10:
+                if jud_time >= 5:
                     return {
                         'status': False,
                         'errmsg': '数据库中没有该学生的做题记录，请重新提交该题目。'
                     }
-            break
+            else:
+                break
     memory_limit = eval(sql_res[0]['memory_limit'][:-2])
     time_limit = eval(sql_res[0]['time_limit'][:-2])
     if language == 'gcc':

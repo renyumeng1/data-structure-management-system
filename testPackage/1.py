@@ -4,7 +4,5 @@
 # @Email : 2035328756@qq.com
 # @File : 1.py.py
 # @Project : DataStructureManagementSystem
-a = eval(input())
-b = eval(input())
-
-print(a+b)
+s = input()
+print(str(s)[::-1])

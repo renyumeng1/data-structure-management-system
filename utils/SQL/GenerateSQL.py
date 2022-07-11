@@ -33,7 +33,7 @@ class GenerateSQL:
         self.select_sql = select_sql
 
     @property
-    def generate_add_statement(self):
+    def generate_statement(self):
         """
         :return: 增添加数据的sql语句
         """
@@ -84,7 +84,7 @@ class GenerateSQL:
         :returns:result:True || False
         :returns:errorMsg
         """
-        sql = self.generate_add_statement
+        sql = self.generate_statement
         try:
             result = SQLOperation().run_sql(sql, operation=self.operation)
         except pymysql.err.IntegrityError as e:
@@ -103,5 +103,5 @@ if __name__ == "__main__":
     #                   operation="SELECT").generate_add_statement)
     sql = SQLOperation.load_sql("../../Teachers/views/allSql/classSQL/getClassInfo.sql")
     ew_sql = GenerateSQL(pagination={'paginator': True, 'page': 2, 'count': 2}, operation="SELECT",
-                         select_sql=sql).generate_add_statement
+                         select_sql=sql).generate_statement
     print(SQLOperation().deal_sql_result(ew_sql, "id", "stu_name", "stu_id", "teacher_name", "class_name"))

@@ -52,8 +52,8 @@ class MakeCodeFileFromDataBase:
                         return "和源文件的代码一致，不需要修改"
                     file.close()
         temp_path = os.path.join(cre_path['path'], file_name)
+        print(temp_path)
         file = open(temp_path, 'w')
-        print(code)
         file.write(code)
         file.close()
         return 'true'
@@ -90,5 +90,5 @@ class MakeCodeFileFromDataBase:
 
 
 if __name__ == "__main__":
-    status = MakeCodeFileFromDataBase(sql_path='../allSQL/getJudgeInfo.sql', subs_path='../../subsAndCase/subs').makeCodeFile
+    status = MakeCodeFileFromDataBase(sql_path='../allSQL/getJudgeInfo.sql', subs_path='../subsAndCase/subs').makeCodeFile
     print(status)
