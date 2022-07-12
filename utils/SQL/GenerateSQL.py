@@ -79,6 +79,7 @@ class GenerateSQL:
                 new_sql = self.select_sql[:-1] + limit_sql
             return new_sql
 
+
     def run_sql(self):
         """
         :returns:result:True || False

@@ -13,3 +13,6 @@ class AddQuestionInfoForm(forms.Form):
     category_id = forms.IntegerField()
     memory_limit = forms.CharField(max_length=1024)
     time_limit = forms.CharField(max_length=1024)
+
+
+
