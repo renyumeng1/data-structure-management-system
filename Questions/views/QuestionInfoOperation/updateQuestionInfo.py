@@ -17,14 +17,6 @@ from utils.mkDir import MakeCodeFileFromDataBase
 
 
 def updateQuestionInfo(request, ques_id):
-    all_path = os.path.dirname(__file__)
-    form = AddQuestionInfoForm(data=request.POST)
-    zip_file_obj = request.FILES.get('case_file')
-    if zip_file_obj is None:
-        return JsonResponse({
-            'status': False,
-            'errmsg': "没有上传对应题目的测试样例。"
-        })
     if request.method == "GET":
         sql = f"""
         select res.id, res.ques_name, res.ques_detail, Qc.ques_category, res.memory_limit, res.time_limit
@@ -45,6 +37,15 @@ def updateQuestionInfo(request, ques_id):
         return JsonResponse({
             'status': False,
             'errmsg': '请求的题目不存在，请重试'
+        })
+    all_path = os.path.dirname(__file__)
+    form = AddQuestionInfoForm(data=request.POST)
+    zip_file_obj = request.FILES.get('case_file')
+    print(zip_file_obj)
+    if zip_file_obj is None:
+        return JsonResponse({
+            'status': False,
+            'errmsg': "没有上传对应题目的测试样例。"
         })
     if form.is_valid():
         form_data = form.cleaned_data
