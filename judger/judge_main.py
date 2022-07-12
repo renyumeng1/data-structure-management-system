@@ -54,8 +54,7 @@ class MainJudge:
             }  # 编译失败
         result = Judger.judge(self.solution_id, self.user_id, self.language, self.TimeLim, self.MemLim, self.mode)
         # 取得结果，这里用字典的形式返回，方便转json
-        if self.language != "python3": os.remove(
-            Language_rm[self.language].format(user_id=self.user_id, solution_id=self.solution_id))
+        Language_rm[self.language].format(user_id=self.user_id, solution_id=self.solution_id)
         # 删除编译文件
         return result
 
