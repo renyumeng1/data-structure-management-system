@@ -10,6 +10,7 @@ import pymysql
 import time
 from typing import Tuple, Union, Any
 from pymysql.cursors import DictCursor, Cursor
+from pymysql.constants import CLIENT
 
 
 class SQLOperation:
@@ -21,8 +22,10 @@ class SQLOperation:
         self.name = db_name
         self.cursor_class = cursor_class
 
-    def run_sql(self, sql, operation="SELECT"):
+    def run_sql(self, sql, operation="SELECT", if_CLIENT=False, if_get_id=False):
         """
+        :param if_get_id: 是否得到上一次增删改的id
+        :param if_CLIENT: 是否多行执行sql
         :param operation: sql操作
         :param sql: 执行的sql语句
         :return: 查询结果
@@ -30,8 +33,13 @@ class SQLOperation:
         con = None
         while True:
             try:
-                con = pymysql.connect(host=self.host, user=self.user, password=self.pwd,
-                                      database=self.name, cursorclass=self.cursor_class)
+                if if_CLIENT:
+                    con = pymysql.connect(host=self.host, user=self.user, password=self.pwd,
+                                          database=self.name, cursorclass=self.cursor_class,
+                                          client_flag=CLIENT.MULTI_STATEMENTS)
+                else:
+                    con = pymysql.connect(host=self.host, user=self.user, password=self.pwd,
+                                          database=self.name, cursorclass=self.cursor_class)
                 break
             except:
                 logging.error('Cannot connect to database,trying again')
@@ -52,9 +60,15 @@ class SQLOperation:
         data = cur.fetchall()
         cur.close()
         con.close()
+
         if operation == "SELECT":
             return data
-        elif operation == "ADD":
+        elif operation == "INSERT":
+            if if_get_id:
+                return {
+                    'status': True,
+                    'id': cur.lastrowid
+                }
             return True
 
     def deal_sql_result(self, sql: str, *key: str):

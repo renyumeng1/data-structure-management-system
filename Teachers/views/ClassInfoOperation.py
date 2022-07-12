@@ -37,7 +37,7 @@ def getClassInfo(request):
         })
 
 
-def addClassInfo(request):
+async def addClassInfo(request):
     # 增加一个班级
     if request.method == "POST":
         form = AddClassInfoForm(data=request.POST)
