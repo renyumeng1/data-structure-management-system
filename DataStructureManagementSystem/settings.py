@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'Teachers.apps.TeachersConfig',
+    'django_crontab',
     'Questions.apps.QuestionsConfig',
     'Students.apps.StudentsConfig',
 ]
@@ -136,3 +137,16 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# 解决中文乱码问题
+CRONTAB_COMMAND_PREFIX = 'LANG_ALL=zh_cn.UTF-8'
+# 存放log的路径
+CRONJOBS_DIR = "/usr/myproject/DataStructureManagementSystem/Questions/logging/"
+# Log文件名
+CRONJOBS_FILE_NAME = "mkAnsDir.log"
+# 添加定时任务(函数中的输出语句,是输出在.log文件中的)
+
+
+CRONJOBS = (
+    ('*/1 * * * *', 'Questions.Task.mkResDirTask', '>>' + CRONJOBS_DIR + CRONJOBS_FILE_NAME + ' 2>&1'),
+)
