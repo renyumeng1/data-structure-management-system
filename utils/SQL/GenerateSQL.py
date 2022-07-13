@@ -65,7 +65,7 @@ class GenerateSQL:
             sql = f"""
                             insert into {self.table_name}({_table_name})
                         value ({_value});
-                            """
+                        """
             return sql
         elif (self.operation == "SELECT") and (self.pagination['paginator'] is True):
             page = self.pagination['page']

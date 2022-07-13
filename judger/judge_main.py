@@ -54,8 +54,7 @@ class MainJudge:
             }  # 编译失败
         result = Judger.judge(self.solution_id, self.user_id, self.language, self.TimeLim, self.MemLim, self.mode)
         # 取得结果，这里用字典的形式返回，方便转json
-        if self.language != "python3": os.remove(
-            Language_rm[self.language].format(user_id=self.user_id, solution_id=self.solution_id))
+        Language_rm[self.language].format(user_id=self.user_id, solution_id=self.solution_id)
         # 删除编译文件
         return result
 
@@ -66,5 +65,5 @@ if __name__ == "__main__":
     # language = "g++"
     # language="g++"
     # language="java"现在在我的环境下(wsl2 ubuntu18.04.5)还运行不了java
-    Jud = MainJudge(language, 1000, 102400, 1001, 5120201234)
+    Jud = MainJudge(language, 1000, 102400, 1002, 5120201234)
     print(Jud.run())

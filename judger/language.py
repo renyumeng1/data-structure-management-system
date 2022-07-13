@@ -33,5 +33,5 @@ Language_rm = {
 
     "python2": '',
 
-    "python3": python3.split()[1],
+    "python3": python3,
 }
