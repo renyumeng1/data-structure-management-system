@@ -23,13 +23,13 @@ class Complier:
             "python3": 'python3 -m py_compile main.py',
         }
         if self.lan=="python3":
-            code_read=open(os.path.join(config.WORK_DIR,"main.py"),"r",encoding="UTF-8")
+            code_read=open(os.path.join(self.dir_work,"main.py"),"r",encoding="UTF-8")
             code=code_read.read()
             protect=ProtectFroPython()
             protect.visit(ast.parse(code))
             if not protect.Is_safe():
                 return False
-        p = subprocess.Popen(build_cmd[self.lan], cwd=self.dir_work, shell=True, stdout=subprocess.PIPE,
+        p = subprocess.Popen(build_cmd[self.lan], shell=True, stdout=subprocess.PIPE,
                              stderr=subprocess.PIPE)
         out, err = p.communicate()  # 获取编译错误信息
 
@@ -45,5 +45,8 @@ class Complier:
             # 删除源文件
             return True
         else:
-            print(err, out)
             return False
+
+if __name__ == "__main__":
+    cp=Complier(1,1,"python3")
+    cp.run_compile()
