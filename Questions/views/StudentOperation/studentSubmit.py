@@ -36,21 +36,38 @@ def submitQuestion(request, ques_id):
                     'errmsg': "创建答案目录失败，请稍后重试。"
                 })
             jud_url = f"http://101.34.38.102:4000/api/jud/{language}/{stu_id}/{ques_id}"
+            te_res = requests.get(url=jud_url)
+            print(te_res.json())
             jud_res = requests.get(url=jud_url).json()
 
             if not jud_res['status']:
                 return JsonResponse(jud_res)
             temp_jud_res = jud_res['judgeResult']
             for key in temp_jud_res:
-                if temp_jud_res[key]['ans'] != 'ACCEPT':
+                try:
+                    if temp_jud_res[key]['ans'] != 'ACCEPT':
+                        sql = f"""
+                        update Questions_studentquestionstatus set status = '{temp_jud_res[key]['ans']}' where id={sql_id};
+                        """
+                        sql_res = SQLOperation().run_sql(operation="UPDATE", sql=sql)
+                        if sql_res:
+                            return JsonResponse({
+                                'status': True,
+                                'jud_res': temp_jud_res[key]['ans']
+                            })
+                        return JsonResponse({
+                            'status': False,
+                            'errmsg': "服务器出现故障，请稍后再试。"
+                        })
+                except TypeError as e:
                     sql = f"""
-                    update Questions_studentquestionstatus set status = '{temp_jud_res[key]['ans']}' where id={sql_id};
+                    update Questions_studentquestionstatus set status = 'Compile error' where id={sql_id};
                     """
                     sql_res = SQLOperation().run_sql(operation="UPDATE", sql=sql)
                     if sql_res:
                         return JsonResponse({
                             'status': True,
-                            'jud_res': temp_jud_res[key]['ans']
+                            'jud_res': 'Compile error'
                         })
                     return JsonResponse({
                         'status': False,
@@ -63,7 +80,7 @@ def submitQuestion(request, ques_id):
             if sql_res:
                 return JsonResponse({
                     'status': True,
-                    'jud_res': 'ACCEPT'
+                    'jud_res': 'Accept'
                 })
             return JsonResponse({
                 'status': False,

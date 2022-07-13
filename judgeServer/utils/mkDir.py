@@ -75,6 +75,7 @@ class MakeCodeFileFromDataBase:
             code = res[i]["stu_solution"]
             code_file_name = {
                 'python3': 'main.py',
+                'gcc': 'main.cpp',
                 'g++': 'main.cpp',
                 'java': 'Main.java'
             }
@@ -86,9 +87,10 @@ class MakeCodeFileFromDataBase:
             else:
                 status['status'] = True
             status_list.append(status)
-        return  status_list
+        return status_list
 
 
 if __name__ == "__main__":
-    status = MakeCodeFileFromDataBase(sql_path='../allSQL/getJudgeInfo.sql', subs_path='../subsAndCase/subs').makeCodeFile
+    status = MakeCodeFileFromDataBase(sql_path='../allSQL/getJudgeInfo.sql',
+                                      subs_path='../subsAndCase/subs').makeCodeFile
     print(status)
