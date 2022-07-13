@@ -30,7 +30,7 @@ class judge_one:
             return "Presentation Error"
         else:
             os.remove(user_out_path)
-            return "Wrong Anser"
+            return "Wrong Answer"
 
 
     def run(self,test_case_id)->tuple:

@@ -16,7 +16,7 @@ class GenerateSQL:
     def __int__(self):
         pass
 
-    def __init__(self, table_name=None, form_data=None, pagination=None, operation='ADD', select_sql=None):
+    def __init__(self, table_name=None, form_data=None, pagination=None, operation='INSERT', select_sql=None):
         """
         :param table_name: 需要增添数据的字段名
         :param form_data: 前端发送的表单数据
@@ -37,7 +37,7 @@ class GenerateSQL:
         """
         :return: 增添加数据的sql语句
         """
-        if self.operation == 'ADD':
+        if self.operation == 'INSERT':
             _table_name = ""
             _value = ""
             size = 0
@@ -79,15 +79,14 @@ class GenerateSQL:
                 new_sql = self.select_sql[:-1] + limit_sql
             return new_sql
 
-
-    def run_sql(self):
+    def run_sql(self, if_get_id=False):
         """
         :returns:result:True || False
         :returns:errorMsg
         """
         sql = self.generate_statement
         try:
-            result = SQLOperation().run_sql(sql, operation=self.operation)
+            result = SQLOperation().run_sql(sql, operation=self.operation, if_get_id=if_get_id)
         except pymysql.err.IntegrityError as e:
             _error = str(e)
             # error = _error[_error.index('"'):-1]

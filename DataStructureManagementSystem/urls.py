@@ -17,6 +17,7 @@ Including another URLconf
 from django.urls import path, include
 from Teachers.views import StudentInfoOperation, ClassInfoOperation
 from Questions.views.QuestionInfoOperation import *
+from Questions.views.StudentOperation import *
 
 urlpatterns = [
     path('api/student/get/info/', StudentInfoOperation.getStuInfo),  # 展示学生信息
@@ -26,6 +27,8 @@ urlpatterns = [
     path('api/question/get/all/info/', getQuestionAllInfo),  # 展示所有题目信息
     path('api/question/add/all/info/', addQuestionInfo),  # 增加一道题目
     path('api/question/<int:ques_id>/update/info/', updateQuestionInfo),  # 修改一道题目
+
+    path('api/question/<int:ques_id>/submit/', submitQuestion),  # 学生提交一道题目
 
     path('api/class/get/info/', ClassInfoOperation.getClassInfo),  # 展示班级信息
 

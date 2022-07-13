@@ -15,4 +15,8 @@ class AddQuestionInfoForm(forms.Form):
     time_limit = forms.CharField(max_length=1024)
 
 
-
+class SubmitQuestion(forms.Form):
+    stu_id = forms.IntegerField()
+    language = forms.CharField(max_length=16)
+    stu_solution = forms.CharField(max_length=1024)
+    status = forms.CharField(max_length=32)

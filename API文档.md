@@ -198,7 +198,7 @@ axios
 .then(response => {console.log(respnse.data)})
 ```
 返回：
-```json
+```
 {
     "status": true,
     "page": 1,
@@ -267,6 +267,28 @@ axios
 |⇥ status|boolean|false|true|表单验证失败|
 |⇥ errmsg|string||true|对应的错误信息|
 | status|string||true|数据库已存在该数据，不能添加|
+
+
+## 3.3	学生提交一道题目
+
+> POST  /api/question/<ques_id>/submit/
+### 接口说明
+> 学生提交一道题目，返回代码测评结果 注意：地址中的ques_id需传入对应题目id
+### 请求体(Request Body)
+| 参数名称 | 数据类型 | 默认值 | 不为空 | 描述 |
+| ------ | ------ | ------ | ------ | ------ |
+| stu_id|string|1|true|学生id|
+| language|string|python3|true|使用的编程语言|
+| stu_solution|string|s = input()<br>print(str(s)[::-1])|true|学生提交的代码|
+| status|string|0|true|测评状态（0表示还未测评）|
+### 响应体
+● 200: OK 响应数据格式：
+```json
+{
+  "status": true,
+  "jud_res": "ACCEPT"
+}
+```
 
 
 ## 4	班级相关API
