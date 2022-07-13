@@ -63,7 +63,7 @@ class SQLOperation:
 
         if operation == "SELECT":
             return data
-        elif operation == "INSERT":
+        elif operation == "INSERT" or operation == "UPDATE":
             if if_get_id:
                 return {
                     'status': True,

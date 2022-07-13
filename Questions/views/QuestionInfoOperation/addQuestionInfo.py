@@ -1,48 +1,18 @@
 # -*- coding: utf-8 -*-
-# @Time : 2022/7/6 18:43
+# @Time : 2022/7/12 17:43
 # @Author : renyumeng
 # @Email : 2035328756@qq.com
-# @File : QuestionInfoOperation.py
+# @File : addQuestionInfo.py
 # @Project : DataStructureManagementSystem
 import os
-from typing import Union, Dict, Optional
 
 import requests
 from pymysql.cursors import DictCursor
-from django.http import JsonResponse, Http404
-from django.utils.datastructures import MultiValueDictKeyError
+from django.http import JsonResponse
 
 from utils.SQL.runMYSQL import SQLOperation
-from utils.pagination import pagination
 from utils.mkDir import MakeCodeFileFromDataBase
 from Questions.views.form import AddQuestionInfoForm
-
-
-def getQuestionAllInfo(request):
-    # 获取题目信息
-    if request.method == "GET":
-        module_dir = os.path.dirname(__file__)
-        file_path = os.path.join(module_dir, "allSql/questionSQL/getQuestionAllInfo.sql")
-        sql = SQLOperation.load_sql(file_path)
-        if sql is None:
-            return Http404
-        all_operation: Union[JsonResponse, Dict[str, Optional[str]]] = pagination(request, sql)
-        if type(all_operation) is not dict:
-            return all_operation
-        sql = all_operation['sql']
-        exist_page = all_operation['exist_page']
-        query_dict = SQLOperation().deal_sql_result(sql, "id", "ques_name", "ques_category", "ques_detail",
-                                                    "total_finish")
-        if exist_page is None:
-            return JsonResponse({
-                'status': True,
-                'data': query_dict
-            })
-        return JsonResponse({
-            'status': True,
-            'page': exist_page,
-            'data': query_dict
-        })
 
 
 def addQuestionInfo(request):
@@ -72,10 +42,10 @@ def addQuestionInfo(request):
                 from Questions_questionbank where desc_id = {sql_res['id']};
                 """
                 ques_id = SQLOperation(cursor_class=DictCursor).run_sql(sql=get_id_sql, operation='SELECT')[0]['id']
-                temp_file_path = './tempFile'
+                temp_file_path = '../tempFile'
                 if not os.path.exists(temp_file_path):
                     temp_file_path = MakeCodeFileFromDataBase.mkdir(temp_file_path)['path']
-                temp_file_path = os.path.join(all_path, './tempFile', zip_file_obj.name)
+                temp_file_path = os.path.join(all_path, '../tempFile', zip_file_obj.name)
                 with open(temp_file_path, "wb") as f:
                     for line in zip_file_obj.chunks():
                         f.write(line)

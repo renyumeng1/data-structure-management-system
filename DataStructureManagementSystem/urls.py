@@ -16,15 +16,19 @@ Including another URLconf
 
 from django.urls import path, include
 from Teachers.views import StudentInfoOperation, ClassInfoOperation
-from Questions.views import QuestionInfoOperation
+from Questions.views.QuestionInfoOperation import *
 
 urlpatterns = [
     path('api/student/get/info/', StudentInfoOperation.getStuInfo),  # 展示学生信息
     path('api/student/add/info/', StudentInfoOperation.addStuInfo),  # 增添学生信息
     path('api/student/edit/int:nid/info/', StudentInfoOperation.editStudentInfo),  # 修改学生信息
-    path('api/question/get/all/info/', QuestionInfoOperation.getQuestionAllInfo),  # 展示所有题目信息
-    path('api/question/add/all/info/', QuestionInfoOperation.addQuestionInfo),  # 增加一道题目
+
+    path('api/question/get/all/info/', getQuestionAllInfo),  # 展示所有题目信息
+    path('api/question/add/all/info/', addQuestionInfo),  # 增加一道题目
+    path('api/question/<int:ques_id>/update/info/', updateQuestionInfo),  # 修改一道题目
+
     path('api/class/get/info/', ClassInfoOperation.getClassInfo),  # 展示班级信息
+
     path('api/class/add/info/', ClassInfoOperation.addClassInfo)  # 增加学生信息
 
 ]
