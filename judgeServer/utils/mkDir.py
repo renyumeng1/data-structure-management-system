@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-# @Time : 2022/7/10 21:52
-# @Author : RuanCat
-# @Email : 473670005@qq.com
+# @Time : 2022/7/9 23:21
+# @Author : renyumeng
+# @Email : 2035328756@qq.com
 # @File : mkDir.py
 # @Project : DataStructureManagementSystem
 import os
@@ -75,6 +75,7 @@ class MakeCodeFileFromDataBase:
             code = res[i]["stu_solution"]
             code_file_name = {
                 'python3': 'main.py',
+                'gcc': 'main.cpp',
                 'g++': 'main.cpp',
                 'java': 'Main.java'
             }
@@ -86,21 +87,10 @@ class MakeCodeFileFromDataBase:
             else:
                 status['status'] = True
             status_list.append(status)
-        return  status_list
-
-    def makePythonFile_withoutsql(self,res,python_filename='main.py'):
-        status = {
-            'status': False,
-        }
-        temp_path = os.path.join(self.subs_path, 'user', f'{res[1]}/{res[0]}/code')
-        temp_status = MakePythonFileFromDataBase.MakeFile(python_filename, temp_path, res[2])
-        if temp_status != True:
-            status['errmsg'] = temp_status
-            return status
-        status['status'] = True
-        return status
+        return status_list
 
 
 if __name__ == "__main__":
-    status = MakeCodeFileFromDataBase(sql_path='../allSQL/getJudgeInfo.sql', subs_path='../subsAndCase/subs').makeCodeFile
+    status = MakeCodeFileFromDataBase(sql_path='../allSQL/getJudgeInfo.sql',
+                                      subs_path='../subsAndCase/subs').makeCodeFile
     print(status)

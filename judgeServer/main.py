@@ -6,18 +6,14 @@
 # @Project : DataStructureManagementSystem
 import asyncio
 import os
-import time
 import zipfile
 
 from utils.mkDir import MakeCodeFileFromDataBase
 from utils.SQL.runMYSQL import SQLOperation
 from pymysql.cursors import DictCursor
 from flask import Flask, request
-# from gevent import monkey
 import logging
 import judger
-
-# monkey.patch_all()
 
 app = Flask(__name__)
 
@@ -34,7 +30,6 @@ async def createSubmitStuAnsPath():
 @app.route('/api/create/<ques_id>/case/path', methods=['POST'])
 def createSubmitCasePath(ques_id):
     zip_file = request.files['zip']
-    print(ques_id)
     file_name = zip_file.filename
     if str(file_name).split('.')[-1] != 'zip':
         return {
