@@ -26,9 +26,11 @@ class Complier:
         if self.lan == "python3":
             # code_read = open(os.path.join(config.WORK_DIR, "main.py"), "r", encoding="UTF-8")
             code_read = open(os.path.join(self.dir_work, 'main.py'), "r", encoding="UTF-8")
+            print(code_read.read())
             code = code_read.read()
             protect = ProtectFroPython()
             protect.visit(ast.parse(code))
+
             if not protect.Is_safe():
                 return False
         p = subprocess.Popen(build_cmd[self.lan], cwd=self.dir_work, shell=True, stdout=subprocess.PIPE,
@@ -43,7 +45,7 @@ class Complier:
                 "python3": "main.py",
                 "python2": "main.py",
             }
-            os.remove(os.path.join(self.dir_work, Code[self.lan]))
+            # os.remove(os.path.join(self.dir_work, Code[self.lan]))
             # 删除源文件
             return True
         else:

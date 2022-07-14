@@ -30,6 +30,7 @@ def submitQuestion(request, ques_id):
                 })
             sql_id = res['id']
             mk_dir_res = requests.get(url=mk_ans_dir).json()
+            print(mk_dir_res)
             if not mk_dir_res['status']:
                 return JsonResponse({
                     'status': False,
@@ -37,8 +38,8 @@ def submitQuestion(request, ques_id):
                 })
             jud_url = f"http://101.34.38.102:4000/api/jud/{language}/{stu_id}/{ques_id}"
             te_res = requests.get(url=jud_url)
-            print(te_res.json())
             jud_res = requests.get(url=jud_url).json()
+            print(jud_res)
 
             if not jud_res['status']:
                 return JsonResponse(jud_res)

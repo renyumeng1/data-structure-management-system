@@ -42,6 +42,7 @@ class MainJudge:
         cp = Complier(self.solution_id, self.user_id, self.language)  # 获取编译器
 
         msg = cp.run_compile()  # 编译
+        print(msg)
 
         if not msg:
             return {
