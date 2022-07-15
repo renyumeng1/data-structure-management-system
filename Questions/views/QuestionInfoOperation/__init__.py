@@ -7,5 +7,6 @@
 from Questions.views.QuestionInfoOperation.addQuestionInfo import addQuestionInfo
 from Questions.views.QuestionInfoOperation.getQuestionAllInfo import getQuestionAllInfo
 from Questions.views.QuestionInfoOperation.updateQuestionInfo import updateQuestionInfo
+from Questions.views.QuestionInfoOperation.getQuestionBankInfo import getQuestionBank
 
-__all__ = ['addQuestionInfo', 'getQuestionAllInfo','updateQuestionInfo']
+__all__ = ['addQuestionInfo', 'getQuestionAllInfo', 'updateQuestionInfo', 'getQuestionBank']

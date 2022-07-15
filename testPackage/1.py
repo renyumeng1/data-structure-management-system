@@ -4,5 +4,5 @@
 # @Email : 2035328756@qq.com
 # @File : 1.py.py
 # @Project : DataStructureManagementSystem
-s = input()
-print(str(s)[::-1])
+a, b = map(int, input().split())
+print(a + b)

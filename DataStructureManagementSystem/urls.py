@@ -25,6 +25,7 @@ urlpatterns = [
     path('api/student/edit/int:nid/info/', StudentInfoOperation.editStudentInfo),  # 修改学生信息
 
     path('api/question/get/all/info/', getQuestionAllInfo),  # 展示所有题目信息
+    path('api/question/get/bank/info/', getQuestionBank),  # 展示题目非详情页
     path('api/question/add/all/info/', addQuestionInfo),  # 增加一道题目
     path('api/question/<int:ques_id>/update/info/', updateQuestionInfo),  # 修改一道题目
 
