@@ -33,3 +33,7 @@ def getQuestionBank(request):
             'page': exist_page,
             'data': query_dict
         })
+    return JsonResponse({
+        'status': False,
+        'errmsg': '该接口只支持GET请求。'
+    })
