@@ -47,12 +47,12 @@ class MakeCodeFileFromDataBase:
             if file_exist:
                 with open(temp_path) as file:
                     file_python_code = file.read().replace('\r', '').replace('\t', '').replace(' ', '')
+                    print(file_python_code)
                     new_python_code = code.replace('\r', '').replace('\t', '').replace(' ', '')
                     if new_python_code == file_python_code:
                         return "和源文件的代码一致，不需要修改"
                     file.close()
         temp_path = os.path.join(cre_path['path'], file_name)
-        print(temp_path)
         file = open(temp_path, 'w')
         file.write(code)
         file.close()
@@ -60,7 +60,11 @@ class MakeCodeFileFromDataBase:
 
     @property
     def makeCodeFile(self):
-        sql = SQLOperation().load_sql(self.sql_path)
+        # sql = SQLOperation().load_sql(self.sql_path)
+        sql = f"""
+        select ques_id,stu_id,stu_solution,language,status
+        from Questions_studentquestionstatus where status = '0';
+        """
         res = SQLOperation(cursor_class=DictCursor).run_sql(sql, 'SELECT')
         status = {
             'status': False,
