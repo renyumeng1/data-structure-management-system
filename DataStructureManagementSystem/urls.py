@@ -18,11 +18,12 @@ from django.urls import path, include
 from Teachers.views import StudentInfoOperation, ClassInfoOperation
 from Questions.views.QuestionInfoOperation import *
 from Questions.views.StudentOperation import *
+from Students.views import editStudentInfo
 
 urlpatterns = [
     path('api/student/get/info/', StudentInfoOperation.getStuInfo),  # 展示学生信息
     path('api/student/add/info/', StudentInfoOperation.addStuInfo),  # 增添学生信息
-    path('api/student/edit/int:nid/info/', StudentInfoOperation.editStudentInfo),  # 修改学生信息
+    path('api/student/edit/<int:stu_id>/info/', editStudentInfo),  # 修改学生信息
 
     path('api/question/get/all/info/', getQuestionAllInfo),  # 展示所有题目信息
     path('api/question/get/bank/info/', getQuestionBank),  # 展示题目非详情页

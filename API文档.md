@@ -6,9 +6,9 @@
 
 ### 开发环境
 
-| 参数名     | 字段值                       |
-|---------|---------------------------|
-| baseUrl | http://101.34.38.102:8000 |
+| 参数名 | 字段值 |
+| ------ | ------ |
+|baseUrl|http://101.34.38.102:8000|
 
 ## 2 题目相关API
 
@@ -22,11 +22,11 @@
 
 ### 请求体(Request Body)
 
-| 参数名称       | 数据类型   | 默认值  | 不为空   | 描述          |
-|------------|--------|------|-------|-------------|
-| pagination | string | true | false | true        |为可选项 不传入参数则关闭分页模式|
-| page       | string | 1    | true  | 开启分页模式为必传参数 |
-| count      | string | 4    | true  | 同上          |
+| 参数名称 | 数据类型 | 默认值 | 不为空 | 描述 |
+| ------ | ------ | ------ | ------ | ------ |
+| pagination|string|true|false|true|为可选项 不传入参数则关闭分页模式|
+| page|string|1|true|开启分页模式为必传参数|
+| count|string|4|true|同上|
 
 ### 响应体
 
@@ -69,7 +69,78 @@
 }
 ```
 
-## 2.2 增添题目信息
+## 2.2 展示题目非详情信息
+
+> GET /api/question/get/bank/info/?pagination=true&page=2&count=9
+
+### 接口说明
+
+> 展示题目的非详情信息（点开一道题目之前的题目列表）
+
+### 请求头
+
+| 参数名称 | 默认值 | 描述 |
+| ------ | ------ | ------ |
+|Content-Type|x-www-form-urlencoded||
+
+### 请求参数(Query Param)
+
+| 参数名称 | 默认值 | 描述 |
+| ------ | ------ | ------ |
+|pagination|false|是否开启分页|
+|page|1|当前页数|
+|count|__all__|当前页数应该有多少数据|
+
+### 响应体
+
+● 200: OK 响应数据格式：
+
+```json
+{
+  "status": true,
+  "page": 2,
+  "data": [
+    {
+      "id": 47,
+      "ques_name": "逆转字符串"
+    },
+    {
+      "id": 48,
+      "ques_name": "逆转字符串"
+    },
+    {
+      "id": 49,
+      "ques_name": "逆转字符串"
+    },
+    {
+      "id": 50,
+      "ques_name": "逆转字符串"
+    },
+    {
+      "id": 51,
+      "ques_name": "逆转字符串"
+    },
+    {
+      "id": 52,
+      "ques_name": "逆转字符串"
+    },
+    {
+      "id": 53,
+      "ques_name": "逆转字符串"
+    },
+    {
+      "id": 54,
+      "ques_name": "逆转字符串"
+    },
+    {
+      "id": 55,
+      "ques_name": "逆转字符串"
+    }
+  ]
+}
+```
+
+## 2.3 增添题目信息
 
 > POST /api/question/add/all/info/
 
@@ -85,14 +156,14 @@
 
 ### 请求体(Request Body)
 
-| 参数名称         | 数据类型   | 默认值          | 不为空                                         | 描述      |
-|--------------|--------|--------------|---------------------------------------------|---------|
-| ques_name    | string | 逆转字符串        | true                                        | 添加的题目名称 |
-| ques_detail  | string | 你需要将输入的字符串逆转 | true                                        | 添加的题目信息 |
-| category_id  | string | 1            | true                                        | 题目的类别id |
-| memory_limit | string | 102400KB     | true                                        | 内存限制    |
-| time_limit   | string | 1000ms       | true                                        | 时间限制    |
-| case_file    | file   || true         | 为zip格式的文件 包含1.in 1.out 2.in 2.out （数字为样例个数） |
+| 参数名称 | 数据类型 | 默认值 | 不为空 | 描述 |
+| ------ | ------ | ------ | ------ | ------ |
+| ques_name|string|逆转字符串|true|添加的题目名称|
+| ques_detail|string|你需要将输入的字符串逆转|true|添加的题目信息|
+| category_id|string|1|true|题目的类别id|
+| memory_limit|string|102400KB|true|内存限制|
+| time_limit|string|1000ms|true|时间限制|
+| case_file|file||true|为zip格式的文件 包含1.in 1.out 2.in 2.out （数字为样例个数）|
 
 ### 响应体
 
@@ -127,9 +198,9 @@
 }
 ```
 
-## 2.3 修改题目信息
+## 2.4 修改题目信息
 
-## 2.3.1 修改题目信息（获取需要修改的题目信息部分）
+## 2.4.1 修改题目信息（获取需要修改的题目信息部分）
 
 > GET /api/question/<id>/update/info/
 
@@ -155,7 +226,7 @@
 }
 ```
 
-## 2.3.2 修改题目信息（修改对应id题目，上传样例部分）
+## 2.4.2 修改题目信息（修改对应id题目，上传样例部分）
 
 > POST /api/question/<id>/update/info/
 
@@ -165,20 +236,20 @@
 
 ### 请求头
 
-| 参数名称         | 默认值                                                             | 描述  |
-|--------------|-----------------------------------------------------------------|-----|
-| Content-Type | multipart/form-data; boundary=<calculated when request is sent> |||Content-Length|<calculated when request is sent>|||Host|<calculated when request is sent>|||Accept|*/*|||Accept-Encoding|gzip, deflate, br|||Connection|keep-alive||
+| 参数名称 | 默认值 | 描述 |
+| ------ | ------ | ------ |
+|Content-Type|multipart/form-data; boundary=<calculated when request is sent>|||Content-Length|<calculated when request is sent>|||Host|<calculated when request is sent>|||Accept|*/*|||Accept-Encoding|gzip, deflate, br|||Connection|keep-alive||
 
 ### 请求体(Request Body)
 
-| 参数名称         | 数据类型   | 默认值                 | 不为空   | 描述     |
-|--------------|--------|---------------------|-------|--------|
-| ques_name    | string | 你需要计算3+334234       | true  | 题目名字   |
-| ques_detail  | string | 这时候一道很简单的题，只需要计算3+3 | true  | 题目具体信息 |
-| category_id  | string | 4                   | true  | 类别id   |
-| memory_limit | string | 102400KB            | true  | 内存限制   |
-| time_limit   | string | 100000ms            | true  | 时间限制   |
-| case_file    | file   || true                | *.zip |
+| 参数名称 | 数据类型 | 默认值 | 不为空 | 描述 |
+| ------ | ------ | ------ | ------ | ------ |
+| ques_name|string|你需要计算3+334234|true|题目名字|
+| ques_detail|string|这时候一道很简单的题，只需要计算3+3|true|题目具体信息|
+| category_id|string|4|true|类别id|
+| memory_limit|string|102400KB|true|内存限制|
+| time_limit|string|100000ms|true|时间限制|
+| case_file|file||true|*.zip|
 
 ### 响应体
 
@@ -200,6 +271,33 @@
 }
 ```
 
+## 2.5 展示题目详情页信息
+
+> GET /api/question/<ques_id>/get/desc/info/
+
+### 接口说明
+
+> 展示对应题目id的详情信息，注意：url尖括号内填写对应题目id
+
+### 响应体
+
+● 200: OK 响应数据格式：
+
+```json
+{
+  "status": true,
+  "ques_desc": {
+    "id": 1,
+    "ques_name": "你需要计算3+33423434243",
+    "ques_detail": "这时候一道很简单的题，只需要计算3+3",
+    "total_students_finish": 0,
+    "ques_category": "栈",
+    "memory_limit": "102400KB",
+    "time_limit": "100000ms"
+  }
+}
+```
+
 ## 3 学生相关API
 
 ## 3.1 展示学生信息
@@ -212,28 +310,18 @@
 
 ### 请求参数(Query Param)
 
-| 参数名称       | 默认值     | 描述                                             |
-|------------|---------|------------------------------------------------|
-| pagination | False   | 开启分页模式，返回的数据会根据页码和每页条数分好页如果开启了分页page和count为必传项 |
-| page       | 1       | 页码                                             |
-| count      | __all__ | 每页的条数                                          |
+| 参数名称 | 默认值 | 描述 |
+| ------ | ------ | ------ |
+|pagination|False|开启分页模式，返回的数据会根据页码和每页条数分好页如果开启了分页page和count为必传项|
+|page|1|页码|
+|count|__all__|每页的条数|
 
 ### 响应体
 
-● 200: OK 响应数据格式：JSON
-
-| 参数名称           | 类型            | 默认值  | 不为空          | 描述      |
-|----------------|---------------|------|--------------|---------|
-| status         | boolean       | true || true         |请求成功|请求失败|
-| page           | number        | 1    | true         | 返回的当页页码 |
-| data           | array[object] || true | 返回的所有数据为一个数组 |
-| ⇥ id           | number        || true | id           |
-| ⇥ stu_name     | string        || true | 学生姓名         |
-| ⇥ stu_id       | string        || true | 学生id         |
-| ⇥ teacher_name | string        || true | 所属老师姓名       |
-| ⇥ class        | string        || true | 所属班级名称       |
-
-请求示例(注意：传入的为params参数)：
+● 200: OK 响应数据格式：JSON | 参数名称 | 类型 | 默认值 | 不为空 | 描述 | | ------ | ------ | ------ | ------ | ------ | |
+status|boolean|true||true|请求成功|请求失败| | page|number|1|true|返回的当页页码| | data|array[object]||true|返回的所有数据为一个数组| |⇥
+id|number||true|id| |⇥ stu_name|string||true|学生姓名| |⇥ stu_id|string||true|学生id| |⇥ teacher_name|string||true|所属老师姓名| |⇥
+class|string||true|所属班级名称| 请求示例(注意：传入的为params参数)：
 
 ```
 axios
@@ -309,15 +397,9 @@ axios
 
 ### 响应体
 
-● 200: OK 响应数据格式：JSON
-
-| 参数名称 | 类型 | 默认值 | 不为空 | 描述 |
-| ------ | ------ | ------ | ------ | ------ |
-| status|boolean|True|true|添加成功|
-| status|object||true|{status:false,errmsg:对应的错误信息}|
-|⇥ status|boolean|false|true|表单验证失败|
-|⇥ errmsg|string||true|对应的错误信息|
-| status|string||true|数据库已存在该数据，不能添加|
+● 200: OK 响应数据格式：JSON | 参数名称 | 类型 | 默认值 | 不为空 | 描述 | | ------ | ------ | ------ | ------ | ------ | |
+status|boolean|True|true|添加成功| | status|object||true|{status:false,errmsg:对应的错误信息}| |⇥ status|boolean|false|true|表单验证失败|
+|⇥ errmsg|string||true|对应的错误信息| | status|string||true|数据库已存在该数据，不能添加|
 
 ## 3.3 学生提交一道题目
 
@@ -344,6 +426,67 @@ axios
 {
   "status": true,
   "jud_res": "ACCEPT"
+}
+```
+
+## 3.4 修改个人信息
+
+## 3.4.1 展示该学生的个人信息
+
+> GET /api/student/edit/<stu_id>/info/
+
+### 接口说明
+
+> 展示需修改的部分,注意：url尖括号内需填写对应学生的id
+
+### 响应体
+
+● 200: OK 响应数据格式：
+
+```json
+{
+  "status": true,
+  "stu_info": {
+    "id": 1,
+    "stu_name": "王伟",
+    "stu_img": "/xx/xx/",
+    "stu_id": "5120206377",
+    "stu_gender": 1,
+    "class_name": "大数据2001"
+  }
+}
+```
+
+## 3.4.2 修改学生相应的信息
+
+> POST /api/student/edit/1/info/
+
+### 接口说明
+
+> 修改学生对应的个人信息
+
+### 请求头
+
+| 参数名称 | 默认值 | 描述 |
+| ------ | ------ | ------ |
+|Accept|*/*|||Connection|keep-alive||
+
+### 请求体(Request Body)
+
+| 参数名称 | 数据类型 | 默认值 | 不为空 | 描述 |
+| ------ | ------ | ------ | ------ | ------ |
+| stu_name|string|学生姓名|true||
+| stu_img|string|/对应存储头像的地址/xxx/xxx/|true||
+| stu_gender|string|0|true|0为男，1为女|
+
+### 响应体
+
+● 200: OK 响应数据格式：
+
+```json
+{
+  "status": true,
+  "msg": "信息修改成功。"
 }
 ```
 
@@ -375,7 +518,7 @@ axios
 ```json
 {
   "status": false,
-  "errmsg": "xxx为必填项"
+  "errmsg": xxx为必填项
 }
 ```
 
@@ -406,14 +549,7 @@ axios
 
 ### 响应体
 
-● 200: OK 响应数据格式：JSON
-
-| 参数名称 | 类型 | 默认值 | 不为空 | 描述 |
-| ------ | ------ | ------ | ------ | ------ |
-| status|boolean|true|false|true|查询成功|查询失败|
-| page|number|1|true|当前页码|
-| data|array[object]||true|查询的数据|
-|⇥ id|number||true|id|
-|⇥ class_name|string||true|班级名称|
-|⇥ teacher_name|string||true|学生姓名|
+● 200: OK 响应数据格式：JSON | 参数名称 | 类型 | 默认值 | 不为空 | 描述 | | ------ | ------ | ------ | ------ | ------ | |
+status|boolean|true|false|true|查询成功|查询失败| | page|number|1|true|当前页码| | data|array[object]||true|查询的数据| |⇥
+id|number||true|id| |⇥ class_name|string||true|班级名称| |⇥ teacher_name|string||true|学生姓名|
 
